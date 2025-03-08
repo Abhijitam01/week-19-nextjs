@@ -2,20 +2,18 @@
 import {useEffect , useState} from "react";
 import axios from "axios";
 
-export default function User() {
-    const [loading,setLoading] = useState(true);
-    const [data,setData] = useState();
+export default async function User() {
+    
 
-    useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/users/1").then((res) => {
-            setData(res.data);
-            setLoading(false);
-        })
-    },[])
-
+    const response = await axios.get("https://jsonplaceholder.typicode.com/users/1");
+    await new Promise(r => setTimeout(r, 5000));
+    const data = await response.data;
+    console.log("hi their");
     return (
         <div>
-            {loading ? <h1>Loading...</h1> : <h1>{data.name,data.email}</h1>}
+           user page 
+           {data.name}
+           {data.email}
         </div>
     )
 }
